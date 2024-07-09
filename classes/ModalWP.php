@@ -10,11 +10,12 @@ class ModalWP {
     public function run() {
         add_action( 'customize_register', array( $this->admin, 'register_customizer_settings' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+        add_action( 'wp_footer', array( $this, 'enqueue_scripts' ) );
         add_action( 'wp_footer', array( $this, 'display_modal' ) );
     }
 
     public function enqueue_scripts() {
-        wp_enqueue_script( 'modalwp-js', plugin_dir_url( __FILE__ ) . '../assets/js/modal.js', array(), '1.0.0', true );
+        wp_enqueue_script( 'modalwp-js', plugin_dir_url( __FILE__ ) . '../assets/js/modal.js', array(), '1.0.0' );
         wp_localize_script( 'modalwp-js', 'modalwp_settings', array(
             'close_time' => get_theme_mod( 'modalwp_close_time', 0 ),
             'expiry_date' => get_theme_mod( 'modalwp_expiry_date', '' ),
